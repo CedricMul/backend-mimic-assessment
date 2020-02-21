@@ -57,17 +57,19 @@ def create_mimic_dict(filename):
     stringList = []
     for it in lineSplit:
         order = it.split(' ')
-        for o in it:
+        for o in order:
             stringList.append(o)
     mime_dict = {}
-    for w in range(len(stringList):
+    for w in range(len(stringList)):
+        if w == len(stringList) - 1:
+            break
         word = stringList[w]
         if word in mime_dict:
             mime_dict[word].append(stringList[w+1])
         else:
             mime_dict[word] = [stringList[w+1]]
     return mime_dict
-    
+
 
 
 
@@ -88,11 +90,12 @@ def print_mimic(mimic_dict, start_word):
 
 
 # Provided main(), calls mimic_dict() and mimic()
+
+
 def main():
     if len(sys.argv) != 2:
         print 'usage: python mimic.py file-to-read'
         sys.exit(1)
-
     d = create_mimic_dict(sys.argv[1])
     print_mimic(d, '')
 
