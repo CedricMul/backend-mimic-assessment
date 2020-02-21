@@ -46,28 +46,29 @@ columns, so the output looks better.
 import random
 import sys
 
-__author__ = "???"
+__author__ = "Cedric Mulvihill"
 
 
 def create_mimic_dict(filename):
-    """Returns mimic dict mapping each word to list of words which follow it.
-    For example:
-        Input: "I am a software developer, and I don't care who knows"
-        Output:
-            {
-                "" : ["I"],
-                "I" : ["am", "don't"],
-                "am": ["a"],
-                "a": ["software"],
-                "software" : ["developer,"],
-                "developer," : ["and"],
-                "and" : ["I"],
-                "don't" : ["care"],
-                "care" : ["who"],
-                "who" : ["knows"]
-            }
-    """
-    # +++your code here+++
+    with open(filename, 'r') as f:
+        pureString = f.read()
+        f.close()
+    lineSplit = pureString.splitlines()
+    stringList = []
+    for it in lineSplit:
+        order = it.split(' ')
+        for o in it:
+            stringList.append(o)
+    mime_dict = {}
+    for w in range(len(stringList):
+        word = stringList[w]
+        if word in mime_dict:
+            mime_dict[word].append(stringList[w+1])
+        else:
+            mime_dict[word] = [stringList[w+1]]
+    return mime_dict
+    
+
 
 
 def print_mimic(mimic_dict, start_word):
@@ -77,8 +78,13 @@ def print_mimic(mimic_dict, start_word):
         - Randomly select a new word from the next-list
         - Repeat this process 200 times
     """
-    # +++your code here+++
-    pass
+    print start_word
+    running_list = mimic_dict[start_word]
+    for i in range(1, 200):
+        nextWord = running_list[random.randint(0, len(running_list) - 1)]
+        print nextWord
+        running_list = mimic_dict[nextWord]
+
 
 
 # Provided main(), calls mimic_dict() and mimic()
